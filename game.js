@@ -38,7 +38,8 @@ function Game() {
         this.ctx.fillStyle = "black";
         this.ctx.font = "30px Arial";
         this.ctx.textAlign = "center"
-        this.ctx.fillText("Too early!", this.canvas.width/2, this.canvas.height/2);
+        this.ctx.fillText("Click or press spacebar when the", this.canvas.width/2, this.canvas.height/2) 
+        this.ctx.fillText("screen turns green", this.canvas.width/2, this.canvas.height/2 + 50) 
     }
 
     //fires when settimeout is called
@@ -90,8 +91,7 @@ function Game() {
             this.ctx.fillStyle = "black";
             this.ctx.font = "30px Arial";
             this.ctx.textAlign = "center"
-            this.ctx.fillText("You can only press it after", this.canvas.width/2, this.canvas.height/2 - 50); 
-            this.ctx.fillText("the screen turns green, not before", this.canvas.width/2, this.canvas.height/2); 
+            this.ctx.fillText("Too early!", this.canvas.width/2, this.canvas.height/2 - 50); 
             this.startTime = 0;
             this.cTime = 0;
             this.countDownStarted = false;
