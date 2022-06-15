@@ -9,6 +9,7 @@ function Game() {
     this.canvas =  document.getElementById("myCanvas");
     this.ctx    =  this.canvas.getContext("2d"); 
     this.isCancelled = false;
+
     this.start = function() {
         this.countDownStarted = false
         console.log("started")
