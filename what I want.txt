@@ -1,0 +1,45 @@
+A game that calculates your reaction time
+
+Game
+Pad
+Score
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------
+A game that calculates your reaction time and saves to a leaderboard.
+There are 3 leaderboards
+    a. daily
+    b. monthly
+    c. all time
+The leaderboards show the top 10 people with the fastest reaction time.
+A person can play unlimited times only the highest score is counted.
+A person should enter a appropriate name
+
+-------------------------------------------------------------------------
+Game
+
+Pad
+
+Leaderboard
+    - person, highestScore
+
+Person
+    - name 
+    - score
+
+
+        document.getElementById("fiverank").innerHTML = leaderboard.five.rank;
+        document.getElementById("fivename").innerHTML = leaderboard.five.name;
+        document.getElementById("fivescore").innerHTML = leaderboard.five.score;
+        document.getElementById("fivedate").innerHTML = leaderboard.five.date;

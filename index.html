@@ -1,27 +1,238 @@
+
 <html>
+    
     <head>
         <meta charset="utf-8" />
         <title>Reaction time</title>
+
         <style>
+
             * { padding: 0; margin: 0; }
-            canvas { background: lightblue; display: block; margin: 0 auto; }
+
+            #myCanvas { background: rgb(255, 255, 255); 
+                display: block; 
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -160px; 
+                margin-left: -240px;
+            }
+
+            body {background-color: black;}
+
+
+
+            thead,
+            tfoot {
+                background-color: rgb(0, 0, 0);
+                color: #fff;
+            }
+
+            td  {
+                color: white;
+            }
+
+            table   {
+                border: 4px solid rgb(255, 255, 255);
+                width: 20%;
+                position: fixed;
+                top: 270px;
+                left: 120px;
+                border-collapse: collapse;
+                background-color: #66ccff;
+            }
+
+            td, tr  {
+                 color:black;
+                 border: 4px solid rgb(255, 255, 255);
+            }
+
+            th  {
+                background-color: 66ccff;
+            }
+
+            #askName   {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -160px; 
+                margin-left: -240px;
+            }
+
+            #title  {
+                position: fixed;
+                color:green;
+                top: 60px;
+                left: 50%;
+                margin-left: -230px;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                font-size: 80px;
+
+            }
+            #askName  {
+                position: fixed;
+                top: 800px;
+                left: 850px;
+            }
+
         </style>
-       
     </head>
     <body>
+        <h1 id="title">Reaction Time</h1>
+        <input id="askName" type="text">
+
         <canvas id="myCanvas" width="480" height="320"></canvas>
         <script src="game.js"></script>
-        
+        <script src="scores.js"></script>
+       
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CV7B58PPCG"></script>
         <script>
-        window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer  || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-CV7B58PPCG');
         </script>
-       
 
+<table border="1px" style="color:black">
+    <thead>
+        <tr>
+            <th colspan="4">Leaderboard</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="onerank" ></td>
+            <td id="onename" ></td>
+            <td id="onescore" ></td>
+            <td id="onedate" ></td>
+        </tr>
+        <tr>
+            <td id="tworank" ></td>
+            <td id="twoname" ></td>
+            <td id="twoscore" ></td>
+            <td id="twodate" ></td>
+        </tr>
+        <tr>
+            <td id="threerank" ></td>
+            <td id="threename" ></td>
+            <td id="threescore" ></td>
+            <td id="threedate" ></td>
+        </tr>
+        <tr>
+            <td id="fourrank" ></td>
+            <td id="fourname" ></td>
+            <td id="fourscore" ></td>
+            <td id="fourdate" ></td>
+        </tr>
+        <tr>
+            <td id="fiverank" ></td>
+            <td id="fivename" ></td>
+            <td id="fivescore" ></td>
+            <td id="fivedate" ></td>
+        </tr>
+
+        <tr>
+            <td id="sixrank" ></td>
+            <td id="sixname" ></td>
+            <td id="sixscore" ></td>
+            <td id="sixdate" ></td>
+        </tr>
+        <tr>
+            <td id="sevenrank" ></td>
+            <td id="sevenname" ></td>
+            <td id="sevenscore" ></td>
+            <td id="sevendate" ></td>
+        </tr>
+        <tr>
+            <td id="eightrank" ></td>
+            <td id="eightname" ></td>
+            <td id="eightscore" ></td>
+            <td id="eightdate" ></td>
+        </tr>
+        <tr>
+            <td id="ninerank" ></td>
+            <td id="ninename" ></td>
+            <td id="ninescore" ></td>
+            <td id="ninedate" ></td>
+        </tr>
+        <tr>
+            <td id="tenrank" ></td>
+            <td id="tenname" ></td>
+            <td id="tenscore" ></td>
+            <td id="tendate" ></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<script>
+
+   
+
+    async function drawLeaderboard()  {
+
+        //get scores from the server
+        const leaderboard = await getScores();
+        
+
+
+        document.getElementById("onerank").innerHTML = 1;
+        document.getElementById("onename").innerHTML = leaderboard[0].name;
+        document.getElementById("onescore").innerHTML = leaderboard[0].reactiontime;
+        document.getElementById("onedate").innerHTML = leaderboard[0].date;
+
+        document.getElementById("tworank").innerHTML = 2;
+        document.getElementById("twoname").innerHTML = leaderboard[1].name;
+        document.getElementById("twoscore").innerHTML = leaderboard[1].reactiontime;
+        document.getElementById("twodate").innerHTML = leaderboard[1].date;
+
+        document.getElementById("threerank").innerHTML = 3;
+        document.getElementById("threename").innerHTML = leaderboard[2].name;
+        document.getElementById("threescore").innerHTML = leaderboard[2].reactiontime;
+        document.getElementById("threedate").innerHTML = leaderboard[2].date;
+
+        document.getElementById("fourrank").innerHTML = 4;
+        document.getElementById("fourname").innerHTML = leaderboard[3].name;
+        document.getElementById("fourscore").innerHTML = leaderboard[3].reactiontime;
+        document.getElementById("fourdate").innerHTML = leaderboard[3].date;
+
+        document.getElementById("fiverank").innerHTML = 5;
+        document.getElementById("fivename").innerHTML = leaderboard[4].name;
+        document.getElementById("fivescore").innerHTML = leaderboard[4].reactiontime;
+        document.getElementById("fivedate").innerHTML = leaderboard[4].date;
+
+        document.getElementById("sixrank").innerHTML = 6;
+        document.getElementById("sixname").innerHTML = leaderboard[5].name;
+        document.getElementById("sixscore").innerHTML = leaderboard[5].reactiontime;
+        document.getElementById("sixdate").innerHTML = leaderboard[5].date;
+
+        document.getElementById("sevenrank").innerHTML = 7;
+        document.getElementById("sevenname").innerHTML = leaderboard[6].name;
+        document.getElementById("sevenscore").innerHTML = leaderboard[6].reactiontime;
+        document.getElementById("sevendate").innerHTML = leaderboard[6].date;
+
+        document.getElementById("eightrank").innerHTML = 8;
+        document.getElementById("eightname").innerHTML = leaderboard[7].name;
+        document.getElementById("eightscore").innerHTML = leaderboard[7].reactiontime;
+        document.getElementById("eightdate").innerHTML = leaderboard[7].date;
+
+        document.getElementById("ninerank").innerHTML = 9;
+        document.getElementById("ninename").innerHTML = leaderboard[8].name;
+        document.getElementById("ninescore").innerHTML = leaderboard[8].reactiontime;
+        document.getElementById("ninedate").innerHTML = leaderboard[8].date;
+
+        document.getElementById("tenrank").innerHTML = 10;
+        document.getElementById("tenname").innerHTML = leaderboard[9].name;
+        document.getElementById("tenscore").innerHTML = leaderboard[9].reactiontime;
+        document.getElementById("tendate").innerHTML = leaderboard[9].date;
+
+        
+        
+    };
+
+    drawLeaderboard();
+    </script>
     </body>
 </html>

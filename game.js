@@ -9,21 +9,23 @@ function Game() {
     this.canvas =  document.getElementById("myCanvas");
     this.ctx    =  this.canvas.getContext("2d"); 
     this.isCancelled = false;
-
+    this.reactiontime = 0;
     this.start = function() {
         this.countDownStarted = false
         console.log("started")
         this.ctx.beginPath();
         this.ctx.rect(0, 0, this.canvas.width, this.canvas.height)
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "grey";
         this.ctx.fill();
         this.ctx.closePath();
         
-        this.ctx.fillStyle = "green";
-        this.ctx.font = "30px Arial";
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "30px Helvetica";
         this.ctx.textAlign = "center"
         this.ctx.fillText("Click the button", this.canvas.width/2, this.canvas.height/2) 
     }
+
+
 
     this.startCountdown = function () {
         //start timer
@@ -37,7 +39,7 @@ function Game() {
         this.ctx.closePath();
         
         this.ctx.fillStyle = "black";
-        this.ctx.font = "30px Arial";
+        this.ctx.font = "30px Helvetica";
         this.ctx.textAlign = "center"
         this.ctx.fillText("Click or press spacebar when the", this.canvas.width/2, this.canvas.height/2) 
         this.ctx.fillText("screen turns green", this.canvas.width/2, this.canvas.height/2 + 50) 
@@ -69,9 +71,10 @@ function Game() {
         this.ctx.closePath();
 
         this.ctx.fillStyle = "black";
-        this.ctx.font = "30px Arial";
+        this.ctx.font = "30px Helvetica";
         this.ctx.textAlign = "left"
-        this.ctx.fillText(Math.round(cTime*1000)/1000,  this.canvas.width/2, this.canvas.height/2) 
+        this.reactiontime = Math.round(cTime*1000)/1000
+        this.ctx.fillText(this.reactiontime,  this.canvas.width/2 - 20, this.canvas.height/2) 
 
         this.handleToAnimation = window.requestAnimationFrame(this.updateReactionTimer.bind(this))
     }
@@ -90,7 +93,7 @@ function Game() {
             this.ctx.closePath();
 
             this.ctx.fillStyle = "black";
-            this.ctx.font = "30px Arial";
+            this.ctx.font = "30px Helvetica";
             this.ctx.textAlign = "center"
             this.ctx.fillText("Too early!", this.canvas.width/2, this.canvas.height/2 - 50); 
             this.startTime = 0;
@@ -104,12 +107,25 @@ function Game() {
     this.stopAnimation = function ()    {
         window.cancelAnimationFrame(this.handleToAnimation);
         this.startTime = 0;
+        // save cTime
+
+        //process the score
+        processResult(this.reactiontime)
+
         this.cTime = 0;
         this.countDownStarted = false;
         console.log("redrawn button");
         drawButton(startButton, "#00BFFF");
     }
 }
+
+function processResult(reactiontime) {
+    let playername = document.getElementById("askName").value
+    createScore(playername,reactiontime)
+    drawLeaderboard();
+
+}
+        
 
 //----------------utility standalone functions------------------
 function getRandomArbitrary(min, max) {
@@ -186,7 +202,7 @@ function drawButton(type, color)   {
     game.ctx.fillStyle = color;
     game.ctx.fill();
     game.ctx.closePath();
-    game.ctx.font = "30px Arial";
+    game.ctx.font = "30px Helvetica";
     game.ctx.textAlign = "center";
     game.ctx.fillStyle = "black";
     game.ctx.fillText("CLICK!!!", type.x + type.width/2, type.y + type.height/2 + 10);
