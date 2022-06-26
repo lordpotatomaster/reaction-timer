@@ -23,7 +23,7 @@ async function saveScore(score) {
 }
 
 function createScore(name,reactiontime)  {
-    uname = (name == '')?'NoNamer':name;
+    uname = (name == '')?'noName':name;
 
     details =   {
         "name": uname,
