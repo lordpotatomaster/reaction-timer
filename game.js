@@ -2,6 +2,10 @@
 Contains a Game Area
 */
 
+window.onload = function()    {
+    document.getElementById("askName").value = localStorage.getItem("name");
+}
+
 function Game() {
     this.lastTime = 0;
     this.startTime = 0
@@ -15,7 +19,7 @@ function Game() {
         console.log("started")
         this.ctx.beginPath();
         this.ctx.rect(0, 0, this.canvas.width, this.canvas.height)
-        this.ctx.fillStyle = "grey";
+        this.ctx.fillStyle = "green";
         this.ctx.fill();
         this.ctx.closePath();
         
@@ -100,7 +104,7 @@ function Game() {
             this.cTime = 0;
             this.countDownStarted = false;
             console.log("redrawn button");
-            drawButton(startButton, "#00BFFF");
+            drawButton(startButton, "#66B032");
         }
     }
 
@@ -108,14 +112,13 @@ function Game() {
         window.cancelAnimationFrame(this.handleToAnimation);
         this.startTime = 0;
         // save cTime
-
         //process the score
         processResult(this.reactiontime)
-
+        window.localStorage.setItem("name", document.getElementById("askName").value);
         this.cTime = 0;
         this.countDownStarted = false;
         console.log("redrawn button");
-        drawButton(startButton, "#00BFFF");
+        drawButton(startButton, "#9BD770");
     }
 }
 
@@ -157,9 +160,9 @@ function updateMousePosition(event)   {
     mouseY = event.clientY - game.canvas.offsetTop;
     if (game.countDownStarted === false) {
         if (mouseX < startButton.x + startButton.width && mouseX > startButton.x && mouseY > startButton.y && mouseY < startButton.y + startButton.height) {
-            drawButton(startButton, "#1E90FF");
+            drawButton(startButton, "#66B032");
         } else{
-            drawButton(startButton, "#00BFFF");
+            drawButton(startButton, "#9BD770");
         }
     }
 
@@ -228,5 +231,5 @@ function Button(x, y, width, height)    {
 
 
 var startButton = new Button(150, 200, 160, 80);
-drawButton(startButton, "#00BFFF");
+drawButton(startButton, "#9BD770");
 
